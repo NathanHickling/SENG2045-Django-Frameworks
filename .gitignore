@@ -363,8 +363,9 @@ paket-files/
 **/__pycache__/
 *.pyc
 
-#django
+#django tutorial
 dj_ajax/
+test/
 
 
 # Cake - Uncomment if you are using it
