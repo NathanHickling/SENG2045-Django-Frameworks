@@ -364,8 +364,26 @@ paket-files/
 *.pyc
 
 #django tutorial
-dj_ajax/
+# Virtual environment files
+dj_ajax/Scripts/
+dj_ajax/Lib/
+dj_ajax/Include/
+dj_ajax/pyvenv.cfg
+
+# Other virtual environments
 test/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+test/
+
+# Local Django database
+db.sqlite3
 
 
 # Cake - Uncomment if you are using it

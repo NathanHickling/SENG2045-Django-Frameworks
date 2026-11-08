@@ -1,0 +1,5 @@
+/* static is for static things that are for the entire application */
+
+.not-visible {
+    display: none;
+}
