@@ -369,6 +369,7 @@ dj_ajax/Scripts/
 dj_ajax/Lib/
 dj_ajax/Include/
 dj_ajax/pyvenv.cfg
+media/
 
 # Other virtual environments
 test/

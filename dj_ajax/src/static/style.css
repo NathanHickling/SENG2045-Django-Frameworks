@@ -3,3 +3,13 @@
 .not-visible {
     display: none;
 }
+
+.dz{
+    border: dashed !important;
+    border-color: grey;
+    border-radius: 10px !important ;
+}
+
+.dz:hover {
+    background-color: aliceblue !important;
+}

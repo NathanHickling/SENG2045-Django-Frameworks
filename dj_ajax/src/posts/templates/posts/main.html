@@ -36,6 +36,13 @@ posts
           </div>
         </form>
 
+        <form action="/upload" class="dropzone dz">
+          {% csrf_token %}
+          <div class="fallback">
+            <input name="file" type="file" multiple />
+          </div>
+        </form>
+
       </div>
 
     </div>
