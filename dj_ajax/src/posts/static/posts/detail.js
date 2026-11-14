@@ -63,10 +63,24 @@ $.ajax({
         authorEl.innerHTML = `
             <img src="${data.avatar}" class="rounded-circle me-2" width="40" height="40" alt="Profile picture">
             <span>${data.author}</span>
+
         `
 
+        const dateEl = document.createElement('small')
+        dateEl.className = 'text-muted d-block mb-2'
+
+
+        const createdDate = new Date(data.created)
+        const updatedDate = new Date(data.updated)
+
+        dateEl.textContent = `Created: ${createdDate.toLocaleString()}`
+
+        if (updatedDate - createdDate > 1000){
+            dateEl.textContent += ` | Edited: ${updatedDate.toLocaleString()}`
+        }
 
         postBox.appendChild(authorEl)
+        postBox.appendChild(dateEl)
         postBox.appendChild(titleEl)
         postBox.appendChild(bodyEl)
 
@@ -83,6 +97,18 @@ $.ajax({
 
 updateForm.addEventListener('submit', e=>{
     e.preventDefault()
+    document.activeElement.blur()
+
+    const updateModal = document.getElementById('updateModel')
+    const modal = bootstrap.Modal.getInstance(updateModal)
+
+    if (updateModal.contains(document.activeElement)){
+        document.activeElement.blur()
+    }
+
+    if (modal){
+        modal.hide()
+    }
 
     const title = document.getElementById('title')
     const body = document.getElementById('body')
@@ -97,7 +123,7 @@ updateForm.addEventListener('submit', e=>{
         },
         success: function(response){
             console.log(response)
-            handAlerts('success', 'post has been updated')
+            handleAlerts('success', 'post has been updated')
             title.textContent = response.title
             body.textContent = response.body
         },

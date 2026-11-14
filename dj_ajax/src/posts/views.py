@@ -6,6 +6,7 @@ from profiles.models import Profile
 from .utils import action_permission
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from django.db.models import Q
 
 
 # Create your views here.
@@ -55,8 +56,10 @@ def load_post_data_view(request, num_posts):
         lower = upper - visible
         size = Post.objects.all().count()
 
+        search = request.GET.get('search', '')
 
-        qs = Post.objects.all()
+        qs = Post.objects.filter(Q(title__icontains=search) | Q(body__icontains=search))
+
         #dictionary
         data = []
         for obj in qs:
@@ -68,7 +71,9 @@ def load_post_data_view(request, num_posts):
                 'count': obj.like_count,
                 'author': obj.author.user.username,
                 'avatar': obj.author.avatar.url,
-                'logged_in': request.user.username
+                'logged_in': request.user.username,
+                'created': obj.created.isoformat(),
+                'updated': obj.updated.isoformat()
             }
             data.append(item)
         return JsonResponse({'data': data[lower: upper], 'size': size})
@@ -85,6 +90,8 @@ def post_detail_data_view(request, pk):
             'author': obj.author.user.username,
             'avatar': obj.author.avatar.url,
             'logged_in': request.user.username,
+            'created': obj.created.isoformat(),
+            'updated': obj.updated.isoformat()
             
         }
         return JsonResponse({'data': data})

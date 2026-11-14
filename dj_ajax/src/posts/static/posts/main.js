@@ -19,6 +19,8 @@ const dropzone = document.getElementById('my-dropzone')
 const addBtn = document.getElementById('add-btn')
 const closeBtns = [...document.getElementsByClassName('add-modal-close')]
 
+const searchInput = document.getElementById('search-input')
+
 
 // $.ajax({
 //     type: "GET",
@@ -89,6 +91,9 @@ const getData = () => {
     $.ajax({
         type: "GET",
         url: `/data/${visible}/`,
+        data: {
+            search: searchInput.value
+        },
         success: function (response) {
             console.log(response)
             const data = response.data
@@ -106,6 +111,8 @@ const getData = () => {
                                 <img src="${el.avatar}" class="rounded-circle me-2" width="40" height="40" alt="Profile picture">
                                 <span>${el.author}</span>
                             </div>
+
+                            <small class="text-muted">Created: ${new Date(el.created).toLocaleString()} </small>
 
                         <h5 class="card-title">${el.title}</h5>
                         <p class="card-text"> ${el.body}</p>
@@ -147,6 +154,12 @@ const getData = () => {
     });
 }
 
+
+searchInput.addEventListener('input', ()=>{
+    visible = 3
+    postsBox.innerHTML = ''
+    getData()
+})
 
 loadBtn.addEventListener('click', () => {
     spinnerBox.classList.remove('not-visible')
