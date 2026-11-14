@@ -1,0 +1,102 @@
+commit a4e0bc571fbc0d46edf92b929d858a7af54141ca
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Sat Nov 14 15:08:41 2026 -0500
+
+    final version
+
+commit cd8e9380fd7abc035df769ac6efc151a6cf8a222
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Sat Nov 14 13:33:58 2026 -0500
+
+    added timestamps to posts and added search funtionality
+
+commit cb7f11f445d7f9cd6e3c02c76f07bb76f634c79b
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Sat Nov 14 12:05:16 2026 -0500
+
+    added avatar to home page and posts of the user who created it
+
+commit 312ed4954f227d57b29e60b943f83791553d9b2c
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Fri Nov 13 23:11:44 2026 -0500
+
+    completed the tutorial
+
+commit a549bb923fc0fc1bbf77be353291b307339545cf
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Fri Nov 13 10:03:06 2026 -0500
+
+    added the user profile view
+
+commit d09a0e5ed5366e5a29b863b284a716f0523854e2
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Thu Nov 12 20:24:48 2026 -0500
+
+    added limitations to the dropzone as well as preventing duplicate posts being added
+
+commit 168b0db4af9076d623181bfb6391d79065822527
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Thu Nov 12 16:16:56 2026 -0500
+
+    added dropzone js
+
+commit 6c8dce257ad9ba8762a61b3bec92f11835c88f9c
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Mon Nov 9 16:07:24 2026 -0500
+
+    added photo storage to posts
+
+commit bb04d8986f03c19abbb4f9fda85a8d7320d26475
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Mon Nov 9 14:15:04 2026 -0500
+
+    added writing update and delete views as well as functionality with updating posts with ajax
+
+commit 5f254a8fffafcf1074e097cb4323931dfd58e094
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Sun Nov 8 22:15:38 2026 -0500
+
+    did some post detail work
+
+commit 12857f277ae8b8b62a96f6325a7615433520fa3b
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Sun Nov 8 20:49:33 2026 -0500
+
+    finished creating posts with ajax
+
+commit 4487aaa22b311c413e7c05883f1c2f134e3688e9
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Sun Nov 8 01:20:22 2026 -0500
+
+    completed like button with ajax
+
+commit fe6f8fac15332032abb0b3096404c6201a3171db
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Sun Nov 8 00:29:21 2026 -0500
+
+    implemented initial django posts and profiles applications, also fixed messed up gitignore hiding files in commits
+
+commit 420095c00cb25be52a96d10ca05d753055dbe081
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Fri Nov 6 23:16:21 2026 -0500
+
+    Completed creating the models
+
+commit fd40bd858852506530321ce933cf94c27030446b
+Merge: 6b15e0d 60de6fa
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Thu Nov 5 20:17:07 2026 -0500
+
+    Merge GitHub repository with local project
+
+commit 6b15e0d6741dff996212475dee4e0b5ab43a4255
+Author: Nathan Hickling <nhickling3775@conestogac.on.ca>
+Date:   Thu Nov 5 20:13:33 2026 -0500
+
+    initial project setup and gitignore
+
+commit 60de6fa513f261b7a81cf4e9f40e3f3a44b3e939
+Author: NathanHickling <nhickling3775@conestogac.on.ca>
+Date:   Thu Nov 5 19:00:51 2026 -0500
+
+    Initial commit
