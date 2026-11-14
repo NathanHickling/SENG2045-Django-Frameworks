@@ -58,7 +58,15 @@ $.ajax({
         titleEl.textContent = data.title
         bodyEl.textContent = data.body
 
+        const authorEl = document.createElement('div')
+        authorEl.className = 'd-flex align-items-center mt-3 mb-2'
+        authorEl.innerHTML = `
+            <img src="${data.avatar}" class="rounded-circle me-2" width="40" height="40" alt="Profile picture">
+            <span>${data.author}</span>
+        `
 
+
+        postBox.appendChild(authorEl)
         postBox.appendChild(titleEl)
         postBox.appendChild(bodyEl)
 

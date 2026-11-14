@@ -51,7 +51,7 @@ const getCookie = (name) => {
 
 const csrftoken = getCookie('csrftoken');
 const deleted = localStorage.getItem('title')
-if (deleted){
+if (deleted) {
     handleAlerts('danger', `deleted "${deleted}"`)
     localStorage.clear()
 }
@@ -102,6 +102,11 @@ const getData = () => {
                     postsBox.innerHTML += `
                     <div class="card mb-2">
                         <div class="card-body">
+                            <div class="d-flex align-items-center mb-2">
+                                <img src="${el.avatar}" class="rounded-circle me-2" width="40" height="40" alt="Profile picture">
+                                <span>${el.author}</span>
+                            </div>
+
                         <h5 class="card-title">${el.title}</h5>
                         <p class="card-text"> ${el.body}</p>
                         </div>
@@ -194,10 +199,10 @@ postForm.addEventListener('submit', e => {
                         </div>
                     </div>
                 `)
-                likeUnlikePosts()
-                //$('#addPostModal').modal('hide')
-                handleAlerts('success', 'New post added!')
-                //postForm.reset()
+            likeUnlikePosts()
+            //$('#addPostModal').modal('hide')
+            handleAlerts('success', 'New post added!')
+            //postForm.reset()
 
         },
         error: function (error) {
@@ -210,11 +215,11 @@ postForm.addEventListener('submit', e => {
 
 
 
-addBtn.addEventListener('click', ()=>{
+addBtn.addEventListener('click', () => {
     dropzone.classList.remove('not-visible')
 })
 
-closeBtns.forEach(btn=> btn.addEventListener('click', ()=>{
+closeBtns.forEach(btn => btn.addEventListener('click', () => {
     btn.blur()
 
     newPostId = null
@@ -223,7 +228,7 @@ closeBtns.forEach(btn=> btn.addEventListener('click', ()=>{
 
     postForm.reset()
 
-    if (!dropzone.classList.contains('not-visible')){
+    if (!dropzone.classList.contains('not-visible')) {
         dropzone.classList.add('not-visible')
     }
 
@@ -235,8 +240,8 @@ closeBtns.forEach(btn=> btn.addEventListener('click', ()=>{
 Dropzone.autoDiscover = false
 const myDropzone = new Dropzone('#my-dropzone', {
     url: 'upload/',
-    init: function(){
-        this.on('sending', function(file, xhr , formData){
+    init: function () {
+        this.on('sending', function (file, xhr, formData) {
             formData.append('csrfmiddlewaretoken', csrftoken)
             formData.append('new_post_id', newPostId)
         })
