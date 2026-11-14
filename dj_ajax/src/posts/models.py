@@ -9,6 +9,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField()
     liked = models.ManyToManyField(User, blank=True)
+    bookmarked = models.ManyToManyField(User, blank=True, related_name='bookmarked_posts')
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     #keeps track of created date and updated date
     updated = models.DateTimeField(auto_now=True)

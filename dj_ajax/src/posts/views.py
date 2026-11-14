@@ -26,7 +26,9 @@ def post_list_and_create(request):
                 'title': instance.title,
                 'body': instance.body,
                 'author': instance.author.user.username,
-                'id': instance.id
+                'id': instance.id,
+                'avatar': instance.author.avatar.url,
+                'created': instance.created.isoformat(),
             })
 
     context = {
@@ -54,11 +56,12 @@ def load_post_data_view(request, num_posts):
         visible = 3
         upper = num_posts
         lower = upper - visible
-        size = Post.objects.all().count()
 
         search = request.GET.get('search', '')
 
         qs = Post.objects.filter(Q(title__icontains=search) | Q(body__icontains=search))
+
+        size = qs.count()
 
         #dictionary
         data = []
@@ -73,7 +76,8 @@ def load_post_data_view(request, num_posts):
                 'avatar': obj.author.avatar.url,
                 'logged_in': request.user.username,
                 'created': obj.created.isoformat(),
-                'updated': obj.updated.isoformat()
+                'updated': obj.updated.isoformat(),
+                'bookmarked': request.user in obj.bookmarked.all(),
             }
             data.append(item)
         return JsonResponse({'data': data[lower: upper], 'size': size})
@@ -91,7 +95,8 @@ def post_detail_data_view(request, pk):
             'avatar': obj.author.avatar.url,
             'logged_in': request.user.username,
             'created': obj.created.isoformat(),
-            'updated': obj.updated.isoformat()
+            'updated': obj.updated.isoformat(),
+            'bookmarked': request.user.is_authenticated and request.user in obj.bookmarked.all()
             
         }
         return JsonResponse({'data': data})
@@ -114,6 +119,33 @@ def like_unlike_post(request):
         return JsonResponse({'liked': liked, 'count' : obj.like_count})
     return redirect('posts:main-board')
 
+
+@login_required
+def bookmark_unbookmark_post(request):
+    if request.method =='POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        pk = request.POST.get('pk')
+        obj = Post.objects.get(pk=pk)
+
+        if request.user in obj.bookmarked.all():
+            bookmarked = False
+            obj.bookmarked.remove(request.user)
+        else:
+            bookmarked = True
+            obj.bookmarked.add(request.user)
+
+        return JsonResponse({'bookmarked': bookmarked})
+    return redirect('posts:main-board')
+
+
+@login_required
+def bookmarked_posts(request):
+    posts = Post.objects.filter(bookmarked=request.user)
+
+    context = {
+        'posts': posts
+    }
+
+    return render(request, 'posts/bookmarks.html', context)
 
 @login_required
 @action_permission

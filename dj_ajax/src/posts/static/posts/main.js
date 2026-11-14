@@ -74,7 +74,7 @@ const likeUnlikePosts = () => {
             },
             success: function (response) {
                 console.log(response)
-                clickedBtn.textContent = response.liked ? `Unlike (${response.count})` : `Like (${response.count}`
+                clickedBtn.textContent = `${response.liked ? 'Unlike' : 'Like'} · ${response.count} ${response.count === 1 ? 'like' : 'likes'}`
             },
             error: function (error) {
                 console.log(error)
@@ -84,6 +84,35 @@ const likeUnlikePosts = () => {
 
     }))
 }
+
+
+const bookmarkPosts = () => {
+    const bookmarkBtns = document.querySelectorAll('.bookmark-btn:not([data-ready])')
+
+    bookmarkBtns.forEach(btn => {
+        btn.dataset.ready = 'true'
+
+        btn.addEventListener('click', () => {
+            const pk = btn.getAttribute('data-id')
+
+            $.ajax({
+                type: 'POST',
+                url: '/bookmark/',
+                data: {
+                    'csrfmiddlewaretoken': csrftoken,
+                    'pk': pk,
+                },
+                success: function (response) {
+                    btn.textContent = response.bookmarked ? 'Unbookmark' : 'Bookmark'
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            })
+        })
+    })
+}
+
 
 let visible = 3
 
@@ -123,11 +152,16 @@ const getData = () => {
                                     <a href="/${el.id}" class="btn btn-primary">Details</a>
                                 </div>
 
-                                <div class="col-2">
+                                <div class="col-auto">
                                     <form class="like-unlike-forms" data-form-id="${el.id}">
-                                        <button href="#" class="btn btn-primary" id="like-unlike-${el.id}" >${el.liked ? `Unlike (${el.count})` : `Like (${el.count})`}</button>
+                                        <button class="btn btn-primary text-nowrap" id="like-unlike-${el.id}" >${el.liked ? 'Unlike' : 'Like'} · ${el.count} ${el.count === 1 ? 'like' : 'likes'}</button>
                                     </form>
 
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-primary bookmark-btn" data-id="${el.id}">\
+                                        ${el.bookmarked ? 'Unbookmark' : 'Bookmark'}
+                                    </button>
                                 </div>
 
                             </div>
@@ -136,6 +170,7 @@ const getData = () => {
             `
                 });
                 likeUnlikePosts()
+                bookmarkPosts()
             }, 100);
             console.log(response.size)
             if (response.size === 0) {
@@ -155,7 +190,7 @@ const getData = () => {
 }
 
 
-searchInput.addEventListener('input', ()=>{
+searchInput.addEventListener('input', () => {
     visible = 3
     postsBox.innerHTML = ''
     getData()
@@ -189,30 +224,52 @@ postForm.addEventListener('submit', e => {
         }, success: function (response) {
             console.log(response)
             newPostId = response.id
+
             postsBox.insertAdjacentHTML('afterbegin', `
                 <div class="card mb-2">
-                        <div class="card-body">
-                        <h5 class="card-title">${response.title}</h5>
-                        <p class="card-text"> ${response.body}</p>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="${response.avatar}" class="rounded-circle me-2"
+                                width="40" height="40" alt="Profile picture">
+                            <span>${response.author}</span>
                         </div>
-                        <div class="card-footer">
-                            <div class="row">
-                                <div class="col-2">
-                                    <a href="/${url}${response.id}" class="btn btn-primary">Details</a>
-                                </div>
 
-                                <div class="col-2">
-                                    <form class="like-unlike-forms" data-form-id="${response.id}">
-                                        <button class="btn btn-primary" id="like-unlike-${response.id}" >(0))</button>
-                                    </form>
+                        <small class="text-muted">
+                            Created: ${new Date(response.created).toLocaleString()}
+                        </small>
 
-                                </div>
+                        <h5 class="card-title">${response.title}</h5>
+                        <p class="card-text">${response.body}</p>
+                    </div>
 
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-auto">
+                                <a href="/${response.id}/" class="btn btn-primary">Details</a>
+                            </div>
+
+                            <div class="col-auto">
+                                <form class="like-unlike-forms" data-form-id="${response.id}">
+                                    <button class="btn btn-primary text-nowrap"
+                                            id="like-unlike-${response.id}">
+                                        Like · 0 likes
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-primary bookmark-btn"
+                                        data-id="${response.id}">
+                                    Bookmark
+                                </button>
                             </div>
                         </div>
                     </div>
-                `)
+                </div>
+            `)
+
             likeUnlikePosts()
+            bookmarkPosts()
             //$('#addPostModal').modal('hide')
             handleAlerts('success', 'New post added!')
             //postForm.reset()
@@ -245,8 +302,6 @@ closeBtns.forEach(btn => btn.addEventListener('click', () => {
         dropzone.classList.add('not-visible')
     }
 
-    const myDropzone = Dropzone.forElement("#my-dropzone")
-    myDropzone.removeAllFiles(true)
 }))
 
 

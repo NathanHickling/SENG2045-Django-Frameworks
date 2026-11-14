@@ -8,6 +8,8 @@ from .views import (
     delete_post,
     update_post,
     image_upload_view,
+    bookmark_unbookmark_post,
+    bookmarked_posts,
 
 
 )
@@ -21,7 +23,9 @@ urlpatterns = [
     path('upload/', image_upload_view, name='image-upload'),
 
     path('data/<int:num_posts>/',  load_post_data_view, name='posts-data'),
-    path('<pk>/', post_detail, name="post-detail"),
+    path('bookmark/', bookmark_unbookmark_post, name='bookmark'),
+    path('bookmarks/', bookmarked_posts, name='bookmarks'),
+    path('<int:pk>/', post_detail, name="post-detail"),
     path('<pk>/data/', post_detail_data_view, name='post=detail-data'),
     path('<pk>/update/', update_post, name="post-update"),
     path('<pk>/delete/', delete_post, name="post-delete"),
