@@ -52,7 +52,7 @@ const getCookie = (name) => {
 const csrftoken = getCookie('csrftoken');
 const deleted = localStorage.getItem('title')
 if (deleted){
-    handAlerts('danger', `deleted "${deleted}"`)
+    handleAlerts('danger', `deleted "${deleted}"`)
     localStorage.clear()
 }
 
@@ -196,14 +196,14 @@ postForm.addEventListener('submit', e => {
                 `)
                 likeUnlikePosts()
                 //$('#addPostModal').modal('hide')
-                handAlerts('success', 'New post added!')
+                handleAlerts('success', 'New post added!')
                 //postForm.reset()
 
         },
         error: function (error) {
             isSubmitting = false
             console.log(error)
-            handAlerts('danger', 'ups... something went wrong')
+            handleAlerts('danger', 'ups... something went wrong')
         }
     })
 })
